@@ -10,12 +10,15 @@ void funct(SDL_Renderer* renderer)
 int main()
 {
 	Window window("Test", 600, 600, 0, 0, false);
+	Event event;
+
 	
 	window.add_toRender(funct);
 
-	while(1)
+	while(event.isWork())
 	{
 		window.render();
+		event.update();
 	}
 
 	return 0;
