@@ -19,7 +19,7 @@ CFLAGS := -Wall -O2 -g
 # Linker flags (ex: -g )
 LDFLAGS := -g
 # Libs (ex: -lm, -lncurses, -lSDL2)
-LIBS := -lSDL2 -L../libs -ldbhelper
+LIBS := -lSDL2 -llua -L../libs -ldbhelper
 # Defines (ex: -D DEBUG, -Dcount=5)
 DEF := -D DEBUG
 # Directories with source code (ex: source)

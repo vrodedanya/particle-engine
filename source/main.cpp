@@ -10,7 +10,7 @@ void funct(SDL_Renderer* renderer)
 
 int main()
 {
-	Simulator sim("Title", 600, 600, 0, 0, false);
+	Simulator sim("../source/script.lua");
 
 	sim.loop();
 	return 0;
