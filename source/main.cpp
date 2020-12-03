@@ -4,22 +4,14 @@
 
 void funct(SDL_Renderer* renderer)
 {
-	std::cout << "HERE" << std::endl;
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0);
+	SDL_RenderDrawPoint(renderer, 300, 300);
 }
 
 int main()
 {
-	Window window("Test", 600, 600, 0, 0, false);
-	Event event;
+	Simulator sim("Title", 600, 600, 0, 0, false);
 
-	
-	window.add_toRender(funct);
-
-	while(event.isWork())
-	{
-		window.render();
-		event.update();
-	}
-
+	sim.loop();
 	return 0;
 }

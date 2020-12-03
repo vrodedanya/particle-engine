@@ -5,5 +5,6 @@
 
 #include "window.hpp"
 #include "event.hpp"
+#include "simulator.hpp"
 
 #endif
