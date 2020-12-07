@@ -130,4 +130,5 @@ void Manager::update()
 
 		particle->position += particle->speed * particle->way.normalize() * DBHelper::delta;
 	}
+	lua_close(lvm);
 }

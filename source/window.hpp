@@ -49,6 +49,7 @@ public:
 	{
 		SDL_DestroyRenderer(renderer);
 		SDL_DestroyWindow(window);
+		if (SDL_WasInit(SDL_INIT_EVERYTHING)) SDL_Quit();
 	}
 
 	void add_toRender(renderfunc function, renderable* obj);

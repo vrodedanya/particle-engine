@@ -14,8 +14,8 @@ function update(particle)
 	dir_x, dir_y = _getDirection(particle)
 	speed_x, speed_y = _getSpeed(particle)
 
-	speed_x = speed_x + (center_x - x) / 2 * _getDelta()
-	speed_y = speed_y + (center_y - y) / 2 * _getDelta()
+	speed_x = speed_x + (center_x - x) * _getDelta()
+	speed_y = speed_y + (center_y - y) * _getDelta()
 
 	_setDirection(particle, dir_x, dir_y)
 	_setSpeed(particle, speed_x, speed_y)

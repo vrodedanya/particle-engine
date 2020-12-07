@@ -48,6 +48,7 @@ public:
 			lua_pushlightuserdata(lvm, this);
 			lua_pcall(lvm, 1, 0, 0);
 		}
+		lua_close(lvm);
 	}
 	~Simulator()
 	{
