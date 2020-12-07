@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 #include "event.hpp"
 #include "window.hpp"
+#include "manager.hpp"
 
 extern "C" 
 {
@@ -14,7 +15,8 @@ extern "C"
 
 int lua_createWindow(lua_State* lvm);
 int lua_destroyWindow(lua_State* lvm);
-
+int lua_addParticle(lua_State* lvm);
+int lua_drawCircle(lua_State* lvm);
 
 class Simulator	
 {
@@ -23,8 +25,9 @@ private:
 public:
 	Window* window;
 	Event* event;
+	Manager* manager;
 
-	Simulator(const char* scriptName) : event(new Event), window(nullptr)
+	Simulator(const char* scriptName) : window(nullptr), event(new Event), manager(new Manager(scriptName))
 	{
 		lvm = luaL_newstate();
 		luaL_openlibs(lvm);
@@ -35,6 +38,8 @@ public:
 // Register C++ functions here
 		lua_register(lvm, "_createWindow", lua_createWindow);
 		lua_register(lvm, "_destroyWindow", lua_destroyWindow);
+		lua_register(lvm, "_addParticle", lua_addParticle);
+		lua_register(lvm, "_drawCircle", lua_drawCircle);
 
 // Get lua functions here
 		lua_getglobal(lvm, "script");
@@ -43,11 +48,13 @@ public:
 			lua_pushlightuserdata(lvm, this);
 			lua_pcall(lvm, 1, 0, 0);
 		}
+		lua_close(lvm);
 	}
 	~Simulator()
 	{
 		delete window;
 		delete event;
+		delete manager;
 	}
 
 	void loop();

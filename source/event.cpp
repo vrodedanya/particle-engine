@@ -10,7 +10,12 @@ void Event::update()
 		}
 		if (event.type == SDL_KEYDOWN)
 		{
-			isW = false;
+			switch (event.key.keysym.sym)
+			{
+				case SDLK_ESCAPE:
+					isW = false;
+					break;
+			}
 		}
 	}
 }

@@ -37,6 +37,10 @@ Vector2D operator*(const Vector2D& vec1, const double& number)
 {
 	return Vector2D(vec1.xpos * number, vec1.ypos * number);
 }
+Vector2D operator*(const Vector2D& vec1, const Vector2D& vec2)
+{
+	return Vector2D(vec1.xpos * vec2.xpos, vec1.ypos * vec2.ypos);
+}
 Vector2D operator/(const Vector2D& vec1, const double& number)
 {
 	if (number != 0) return Vector2D(vec1.xpos / number, vec1.ypos / number);
