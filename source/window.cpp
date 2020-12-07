@@ -1,6 +1,12 @@
 #include "window.hpp"
 #include <algorithm>
 
+bool operator==(const render_wrapper& first, const render_wrapper& second)
+{
+	return (first.function == second.function) && (first.object == second.object);
+}
+
+
 void Window::render()
 {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
@@ -8,18 +14,18 @@ void Window::render()
 
 	for (auto& func : objects)
 	{
-		func(renderer);
+		(func.object->*func.function)(renderer);
 	}
 
 	SDL_RenderPresent(renderer);
 }
 
-void Window::add_toRender(void(*ptr)(SDL_Renderer* renderer))
+void Window::add_toRender(renderfunc function, renderable* obj)
 {
-	auto it = std::find(objects.begin(), objects.end(), ptr);
+	auto it = std::find(objects.begin(), objects.end(), render_wrapper(function, obj));
 	if (it == objects.end())
 	{	
-		objects.push_back(ptr);
+		objects.push_back(render_wrapper(function, obj));
 	}
 	else
 	{

@@ -4,13 +4,25 @@
 #include <SDL2/SDL.h>
 #include <stdexcept>
 #include <vector>
+#include "renderable.hpp"
+
+using renderfunc = void(renderable::*)(SDL_Renderer* renderer);
+
+struct render_wrapper
+{
+	render_wrapper(renderfunc rf, renderable* obj) : function(rf), object(obj){}
+	renderfunc function;
+	renderable* object;
+	friend bool operator==(const render_wrapper& first, const render_wrapper& second);
+};
+
 
 class Window
 {
 private:
 	SDL_Window* window;
 	SDL_Renderer* renderer;
-	std::vector<void(*)(SDL_Renderer* renderer)> objects;
+		std::vector<render_wrapper> objects;
 public:
 	Window(const char* title, unsigned width, unsigned height, int x, int y, bool IsFullscreen)
 	{
@@ -37,7 +49,7 @@ public:
 		SDL_DestroyWindow(window);
 	}
 
-	void add_toRender(void(*ptr)(SDL_Renderer* renderer));
+	void add_toRender(renderfunc function, renderable* obj);
 
 	void render();
 
