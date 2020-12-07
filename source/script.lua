@@ -1,7 +1,7 @@
 function script(host)
 	_createWindow(host, "Test", 600, 600, xpos, ypos, false)
 	for i = 1,10 do
-		_addParticle(host, 300 + math.random(0, 20), math.random(0, 20), 700, math.random(10, 300), 1, 1)
+		_addParticle(host, 300 + math.random(0, 20), math.random(0, 20), 300, math.random(10, 300), 1, 1)
 	end
     _drawCircle(host, 300, 300, 50)
 end
@@ -14,8 +14,8 @@ function update(particle)
 	dir_x, dir_y = _getDirection(particle)
 	speed_x, speed_y = _getSpeed(particle)
 
-	speed_x = speed_x + (center_x - x) / 700
-	speed_y = speed_y + (center_y - y) / 700
+	speed_x = speed_x + (center_x - x) / 2 * _getDelta()
+	speed_y = speed_y + (center_y - y) / 2 * _getDelta()
 
 	_setDirection(particle, dir_x, dir_y)
 	_setSpeed(particle, speed_x, speed_y)

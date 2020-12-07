@@ -9,7 +9,12 @@ extern "C"
 	#include "lualib.h"
 	#include "lauxlib.h"
 }
-
+int lua_getDelta(lua_State* lvm)
+{
+	if (lua_gettop(lvm) != 0) return -1;
+	lua_pushnumber(lvm, DBHelper::delta);
+	return 1;
+}
 int lua_setCoords(lua_State* lvm)
 {
 	if (lua_gettop(lvm) != 3) return -1;
@@ -74,14 +79,14 @@ int lua_getAcceleration(lua_State* lvm)
 	lua_pushnumber(lvm, particle->acceleration.y());
 	return 2;
 }
-
+/*
 int lua_getNearestParticle(lua_State* lvm)
 {
 	if (lua_gettop(lvm) != 1) return -1;
 	Particle* particle = static_cast<Particle*>(lua_touserdata(lvm, 1));
 
 }
-
+*/
 Manager::~Manager()
 {
 	for (auto& particle : particles)
@@ -107,6 +112,7 @@ void Manager::update()
 	lua_register(lvm, "_getDirection", lua_getDirection);
 	lua_register(lvm, "_getSpeed", lua_getSpeed);
 	lua_register(lvm, "_getAcceleration", lua_getAcceleration);
+	lua_register(lvm, "_getDelta", lua_getDelta);
 	
 	for (auto& particle : particles)
 	{
