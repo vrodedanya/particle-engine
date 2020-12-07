@@ -6,6 +6,7 @@ class renderable
 {
 private:
 public:
+	virtual ~renderable(){}
 	virtual void draw(SDL_Renderer* renderer){}
 };
 #endif

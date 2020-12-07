@@ -36,6 +36,7 @@ public:
 	friend Vector2D operator+(const Vector2D& vec1, const Vector2D& vec2);
 	friend Vector2D operator-(const Vector2D& vec1, const Vector2D& vec2);
 	friend Vector2D operator*(const Vector2D& vec1, const double& number);
+	friend Vector2D operator*(const Vector2D& vec1, const Vector2D& vec2);
 	friend Vector2D operator/(const Vector2D& vec1, const double& number);
 
 	Vector2D& operator += (const Vector2D& vec);
@@ -48,6 +49,7 @@ Vector2D operator+(const Vector2D& vec1, const Vector2D& vec2);
 Vector2D operator-(const Vector2D& vec1, const Vector2D& vec2);
 Vector2D operator*(const Vector2D& vec1, const double& number);
 Vector2D operator/(const Vector2D& vec1, const double& number);
+Vector2D operator*(const Vector2D& vec1, const Vector2D& vec2);
 
 
 #endif

@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include "renderable.hpp"
+#include "dbhelper.h"
 
 int lua_createWindow(lua_State* lvm)
 {
@@ -14,7 +15,7 @@ int lua_createWindow(lua_State* lvm)
 	int ypos = lua_tonumber(lvm, 6);
 	bool isFullscreen = lua_toboolean(lvm, 7);
 	sim->window = new Window(b.c_str(), width, height, xpos, ypos, isFullscreen);
-	sim->window->add_toRender(&renderable::draw, &sim->manager);
+	sim->window->add_toRender(&renderable::draw, sim->manager);
 	return 0;
 }
 
@@ -29,9 +30,9 @@ int lua_destroyWindow(lua_State* lvm)
 
 int lua_addParticle(lua_State* lvm)
 {
-	if (lua_gettop(lvm) != 3) return -1;
+	if (lua_gettop(lvm) != 7) return -1;
 	Simulator* simulator = static_cast<Simulator*>(lua_touserdata(lvm, 1));
-	simulator->manager.add_particle(lua_tointeger(lvm, 2), lua_tointeger(lvm, 3));
+	simulator->manager->add_particle(lua_tointeger(lvm, 2), lua_tointeger(lvm, 3), lua_tonumber(lvm, 4), lua_tonumber(lvm, 5), lua_tonumber(lvm, 6), lua_tonumber(lvm, 7));
 	return 0;
 }
 
@@ -39,7 +40,10 @@ void Simulator::loop()
 {
 	while (event->isWork())
 	{
+		DBHelper::begin();
 		event->update();
+		manager->update();
 		if (window) window->render();
+		DBHelper::end();
 	}
 }

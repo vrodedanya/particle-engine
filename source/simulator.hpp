@@ -17,7 +17,6 @@ int lua_createWindow(lua_State* lvm);
 int lua_destroyWindow(lua_State* lvm);
 int lua_addParticle(lua_State* lvm);
 
-
 class Simulator	
 {
 private:
@@ -25,9 +24,9 @@ private:
 public:
 	Window* window;
 	Event* event;
-	Manager manager;
+	Manager* manager;
 
-	Simulator(const char* scriptName) : window(nullptr), event(new Event)
+	Simulator(const char* scriptName) : window(nullptr), event(new Event), manager(new Manager(scriptName))
 	{
 		lvm = luaL_newstate();
 		luaL_openlibs(lvm);
@@ -52,6 +51,7 @@ public:
 	{
 		delete window;
 		delete event;
+		delete manager;
 	}
 
 	void loop();
