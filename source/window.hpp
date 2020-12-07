@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 #include <stdexcept>
 #include <vector>
+#include <functional>
 #include "renderable.hpp"
 
 using renderfunc = void(renderable::*)(SDL_Renderer* renderer);
@@ -22,7 +23,8 @@ class Window
 private:
 	SDL_Window* window;
 	SDL_Renderer* renderer;
-		std::vector<render_wrapper> objects;
+	std::vector<render_wrapper> objects;
+	std::vector<std::function<void(SDL_Renderer*)>> functions;
 public:
 	Window(const char* title, unsigned width, unsigned height, int x, int y, bool IsFullscreen)
 	{
@@ -50,6 +52,7 @@ public:
 	}
 
 	void add_toRender(renderfunc function, renderable* obj);
+	void add_toRender(std::function<void(SDL_Renderer*)> ptr);
 
 	void render();
 

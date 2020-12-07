@@ -1,18 +1,22 @@
 function script(host)
 	_createWindow(host, "Test", 600, 600, xpos, ypos, false)
-	for i = 1,50 do
-		_addParticle(host, math.random(0, 600), math.random(0,600), 100, 100, 1, 1)
+	for i = 1,10 do
+		_addParticle(host, 300 + math.random(0, 20), math.random(0, 20), 700, math.random(10, 300), 1, 1)
 	end
+    _drawCircle(host, 300, 300, 50)
 end
+
+local center_x = 300
+local center_y = 300
 
 function update(particle)
 	x, y = _getCoords(particle)
 	dir_x, dir_y = _getDirection(particle)
-	if y > 600 or y < 0 then
-		dir_y = dir_y * -1
-	end
-	if x > 600 or x < 0 then
-		dir_x = dir_x * -1
-	end
+	speed_x, speed_y = _getSpeed(particle)
+
+	speed_x = speed_x + (center_x - x) / 700
+	speed_y = speed_y + (center_y - y) / 700
+
 	_setDirection(particle, dir_x, dir_y)
+	_setSpeed(particle, speed_x, speed_y)
 end

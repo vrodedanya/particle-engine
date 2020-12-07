@@ -13,7 +13,6 @@ extern "C"
 int lua_setCoords(lua_State* lvm)
 {
 	if (lua_gettop(lvm) != 3) return -1;
-
 	Particle* particle = static_cast<Particle*>(lua_touserdata(lvm, 1));
 	particle->position.x() = lua_tonumber(lvm, 2);
 	particle->position.y() = lua_tonumber(lvm, 3);
@@ -22,7 +21,6 @@ int lua_setCoords(lua_State* lvm)
 int lua_setDirection(lua_State* lvm)
 {
 	if (lua_gettop(lvm) != 3) return -1;
-
 	Particle* particle = static_cast<Particle*>(lua_touserdata(lvm, 1));
 	particle->way.x() = lua_tonumber(lvm, 2);
 	particle->way.y() = lua_tonumber(lvm, 3);
@@ -31,10 +29,17 @@ int lua_setDirection(lua_State* lvm)
 int lua_setSpeed(lua_State* lvm)
 {
 	if (lua_gettop(lvm) != 3) return -1;
-
 	Particle* particle = static_cast<Particle*>(lua_touserdata(lvm, 1));
 	particle->speed.x() = lua_tonumber(lvm, 2);
 	particle->speed.y() = lua_tonumber(lvm, 3);
+	return 0;
+}
+int lua_setAcceleration(lua_State* lvm)
+{
+	if (lua_gettop(lvm) != 3) return -1;
+	Particle* particle = static_cast<Particle*>(lua_touserdata(lvm, 1));
+	particle->acceleration.x() = lua_tonumber(lvm, 2);
+	particle->acceleration.y() = lua_tonumber(lvm, 3);
 	return 0;
 }
 int lua_getCoords(lua_State* lvm)
@@ -61,6 +66,21 @@ int lua_getSpeed(lua_State* lvm)
 	lua_pushnumber(lvm, particle->speed.y());
 	return 2;
 }
+int lua_getAcceleration(lua_State* lvm)
+{
+	if (lua_gettop(lvm) != 1) return -1;
+	Particle* particle = static_cast<Particle*>(lua_touserdata(lvm, 1));
+	lua_pushnumber(lvm, particle->acceleration.x());
+	lua_pushnumber(lvm, particle->acceleration.y());
+	return 2;
+}
+
+int lua_getNearestParticle(lua_State* lvm)
+{
+	if (lua_gettop(lvm) != 1) return -1;
+	Particle* particle = static_cast<Particle*>(lua_touserdata(lvm, 1));
+
+}
 
 Manager::~Manager()
 {
@@ -82,9 +102,11 @@ void Manager::update()
 	lua_register(lvm, "_setCoords", lua_setCoords);
 	lua_register(lvm, "_setDirection", lua_setDirection);
 	lua_register(lvm, "_setSpeed", lua_setSpeed);
+	lua_register(lvm, "_setAcceleration", lua_setAcceleration);
 	lua_register(lvm, "_getCoords", lua_getCoords);
 	lua_register(lvm, "_getDirection", lua_getDirection);
 	lua_register(lvm, "_getSpeed", lua_getSpeed);
+	lua_register(lvm, "_getAcceleration", lua_getAcceleration);
 	
 	for (auto& particle : particles)
 	{
@@ -99,6 +121,7 @@ void Manager::update()
 			lua_pushlightuserdata(lvm, particle);
 			lua_pcall(lvm, 1, 0, 0);
 		}
-		particle->position += particle->speed * particle->way * DBHelper::delta;
+
+		particle->position += particle->speed * particle->way.normalize() * DBHelper::delta;
 	}
 }

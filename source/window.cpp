@@ -12,9 +12,13 @@ void Window::render()
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_RenderClear(renderer);
 
-	for (auto& func : objects)
+	for (auto& f : objects)
 	{
-		(func.object->*func.function)(renderer);
+		(f.object->*f.function)(renderer);
+	}
+	for (auto& f : functions)
+	{
+		f(renderer);
 	}
 
 	SDL_RenderPresent(renderer);
@@ -29,6 +33,19 @@ void Window::add_toRender(renderfunc function, renderable* obj)
 	}
 	else
 	{
-		throw std::runtime_error("Already exist");
+		throw std::runtime_error("This function is already added to window stack");
 	}
+}
+
+void Window::add_toRender(std::function<void(SDL_Renderer*)> ptr)
+{
+	//auto it = std::find(functions.begin(), functions.end(), ptr);
+	//if (it == functions.end())
+	//{	
+		functions.push_back(ptr);
+	//}
+	//else
+	//{
+	//	throw std::runtime_error("This function is already added to window stack");
+	//}
 }

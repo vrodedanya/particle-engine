@@ -16,6 +16,7 @@ extern "C"
 int lua_createWindow(lua_State* lvm);
 int lua_destroyWindow(lua_State* lvm);
 int lua_addParticle(lua_State* lvm);
+int lua_drawCircle(lua_State* lvm);
 
 class Simulator	
 {
@@ -38,6 +39,7 @@ public:
 		lua_register(lvm, "_createWindow", lua_createWindow);
 		lua_register(lvm, "_destroyWindow", lua_destroyWindow);
 		lua_register(lvm, "_addParticle", lua_addParticle);
+		lua_register(lvm, "_drawCircle", lua_drawCircle);
 
 // Get lua functions here
 		lua_getglobal(lvm, "script");

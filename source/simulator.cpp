@@ -35,6 +35,29 @@ int lua_addParticle(lua_State* lvm)
 	simulator->manager->add_particle(lua_tointeger(lvm, 2), lua_tointeger(lvm, 3), lua_tonumber(lvm, 4), lua_tonumber(lvm, 5), lua_tonumber(lvm, 6), lua_tonumber(lvm, 7));
 	return 0;
 }
+int lua_drawCircle(lua_State* lvm)
+{
+	if (lua_gettop(lvm) != 4) return -1;
+	Simulator* simulator = static_cast<Simulator*>(lua_touserdata(lvm, 1));
+	int x = lua_tointeger(lvm, 2);
+	int y = lua_tointeger(lvm, 3);
+	int radius = lua_tointeger(lvm, 4);
+	simulator->window->add_toRender([x, y, radius](SDL_Renderer* renderer)
+			{
+				SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0);
+				for (int i = y - radius ; i < y + radius ; i++)
+				{
+					for (int j = x - radius ; j < x + radius ; j++)
+					{
+						if (std::pow(x - j, 2) + std::pow(y - i, 2) <= std::pow(radius, 2))
+						{
+							SDL_RenderDrawPoint(renderer, j, i);
+						}
+					}
+				}
+			});
+	return 0;
+}
 
 void Simulator::loop()
 {
