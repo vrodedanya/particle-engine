@@ -1,8 +1,8 @@
-#include "simulator.hpp"
+#include "../include/simulator.hpp"
 #include <string>
 #include <iostream>
-#include "renderable.hpp"
-#include "dbhelper.h"
+#include "../include/renderable.hpp"
+#include "../include/dbhelper.h"
 
 int lua_createWindow(lua_State* lvm)
 {
