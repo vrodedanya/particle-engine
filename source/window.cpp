@@ -1,4 +1,4 @@
-#include "window.hpp"
+#include "../include/window.hpp"
 #include <algorithm>
 
 bool operator==(const render_wrapper& first, const render_wrapper& second)

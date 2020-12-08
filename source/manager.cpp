@@ -1,6 +1,6 @@
-#include "manager.hpp"
+#include "../include/manager.hpp"
 #include <stdexcept>
-#include "dbhelper.h"
+#include "../include/dbhelper.h"
 #include <iostream>
 
 extern "C" 

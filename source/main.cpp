@@ -1,9 +1,9 @@
 #include <iostream>
-#include "engine.hpp"
+#include "../include/engine.hpp"
 
 int main()
 {
-	Simulator sim("../source/script.lua");
+	Simulator sim("../scripts/script.lua");
 
 	sim.loop();
 	return 0;
