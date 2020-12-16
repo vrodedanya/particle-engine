@@ -1,0 +1,13 @@
+_createWindow(simulation, title, width, height, xpos, ypos, isFullscreen)
+_destroyWindow(simulation) - not recommended
+_addParticle(simulation, xpos, ypos, x_speed, y_speed, x_way, y_way)
+_drawCircle(simulation, xpos, ypos, radius)
+_getCoords(particle)
+_getDirection(particle)
+_getSpeed(particle)
+_getAcceleration(particle)
+_getDelta()
+_setCoords(particle, xpos, ypos)
+_setDirection(particle, x_way, y_way)
+_setSpeed(particle, x_speed, y_speed)
+_setAcceleration(particle, x_acceleration, y_acceleration)

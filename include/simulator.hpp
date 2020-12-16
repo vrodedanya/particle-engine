@@ -6,12 +6,7 @@
 #include "window.hpp"
 #include "manager.hpp"
 
-extern "C" 
-{
-	#include "lua.h"
-	#include "lualib.h"
-	#include "lauxlib.h"
-}
+#include "lua.hpp"
 
 int lua_createWindow(lua_State* lvm);
 int lua_destroyWindow(lua_State* lvm);
