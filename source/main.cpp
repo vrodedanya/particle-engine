@@ -8,8 +8,11 @@ int main(int argc, char** argv)
 		std::cerr << "Format:\n./engine <script_name>" << std::endl;
 		return 1;
 	}
-	Simulator sim(argv[1]);
 
-	sim.loop();
-	return 0;
+	tbo::logger::set_priority(tbo::logger::MEDIUM_PRIORITY);
+
+	Simulator sim(argv[1]);
+	sim.add_window("main", "simulator", 600, 600);
+
+	return sim.loop();
 }

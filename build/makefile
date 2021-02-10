@@ -15,11 +15,11 @@ CC := g++
 # File extension (ex: .cpp, .c)
 LANG := .cpp
 # Compiler flags (ex: -Wall, -O2, -g)
-CFLAGS := -Wall -O2 -g -I../include ../tbo/include
+CFLAGS := -Wall -O2 -g -I../include -I../tbo/include
 # Linker flags (ex: -g )
 LDFLAGS := -g
 # Libs (ex: -lm, -lncurses, -lSDL2)
-LIBS := -lSDL2 -llua -L../libs -L../tbo/build/ -ltbo
+LIBS := -lSDL2 -llua -L../libs -L../tbo/build/ -ltbo -pthread
 # Defines (ex: -D DEBUG, -Dcount=5)
 DEF := -D DEBUG
 # Directories with source code (ex: source)
