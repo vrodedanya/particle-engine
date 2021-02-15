@@ -6,8 +6,8 @@
 class Vector2D
 {
 private:
-	double xpos;
-	double ypos;
+	double xpos = 0;
+	double ypos = 0;
 public:
 	Vector2D() : xpos(0), ypos(0){}
 	Vector2D(double x, double y) : xpos(x), ypos(y){}

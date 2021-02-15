@@ -1,9 +1,11 @@
 function script(host)
-	_createWindow(host, "Test", 600, 600, xpos, ypos, false)
-	for i = 1,10 do
-		_addParticle(host, 300 + math.random(0, 20), math.random(0, 20), 300, math.random(10, 300), 1, 1)
+	_createWindow(host, "engine", 600, 600, xpos, ypos, false)
+	for i = 1,1000 do
+		part = _addParticle(host, "engine")
+		_setCoords(part, math.random(0, 600), math.random(0, 600))
+		_setSpeed(part, math.random(-500, 500), math.random(-1000, 100))
+		_setDirection(part, 1, 1)
 	end
-    _drawCircle(host, 300, 300, 50)
 end
 
 local center_x = 300

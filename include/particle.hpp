@@ -5,8 +5,9 @@
 #include <SDL2/SDL.h>
 #include <string>
 #include <vector>
+#include "renderable.hpp"
 
-class Particle
+class Particle : public tbo::renderable
 {
 private:
 public:

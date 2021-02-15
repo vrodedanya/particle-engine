@@ -12,7 +12,6 @@ int main(int argc, char** argv)
 	tbo::logger::set_priority(tbo::logger::MEDIUM_PRIORITY);
 
 	Simulator sim(argv[1]);
-	sim.add_window("main", "simulator", 600, 600);
 
 	return sim.loop();
 }
