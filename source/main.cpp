@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../include/engine.hpp"
+#include "engine.hpp"
 
 int main(int argc, char** argv)
 {
@@ -9,7 +9,7 @@ int main(int argc, char** argv)
 		return 1;
 	}
 
-	tbo::logger::set_priority(tbo::logger::MEDIUM_PRIORITY);
+	tbo::logger::set_priority(tbo::logger::LOW_PRIORITY);
 
 	Simulator sim(argv[1]);
 

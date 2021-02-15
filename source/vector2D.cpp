@@ -1,4 +1,4 @@
-#include "../include/vector2D.hpp"
+#include "vector2D.hpp"
 
 
 void Vector2D::add(const Vector2D& vec)

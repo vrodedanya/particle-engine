@@ -1,4 +1,4 @@
-#include "../include/particle.hpp"
+#include "particle.hpp"
 
 void Particle::draw(SDL_Renderer* renderer)
 {
