@@ -18,6 +18,7 @@ int lua_setSpeed(lua_State* lvm);
 int lua_setAcceleration(lua_State* lvm);
 int lua_setColor(lua_State* lvm);
 int lua_getCenterCoords(lua_State* lvm);
+int lua_getWindowSize(lua_State* lvm);
 
 int lua_getDelta(lua_State* lvm);
 

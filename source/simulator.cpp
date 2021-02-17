@@ -105,9 +105,21 @@ int lua_getCenterCoords(lua_State* lvm)
 	Simulator* sim = static_cast<Simulator*>(lua_touserdata(lvm, 1));
 	std::string str = lua_tostring(lvm, 2);
 	tbo::window* window = sim->get_window(str.c_str());
-	if (window == nullptr) return 0;
+	if (window == nullptr) return -1;
 	lua_pushnumber(lvm, sim->get_window(str.c_str())->get_style().size.width / 2);
 	lua_pushnumber(lvm, sim->get_window(str.c_str())->get_style().size.height / 2);
+	return 2;
+}
+
+int lua_getWindowSize(lua_State* lvm)
+{
+	if (lua_gettop(lvm) != 2) return -1;
+	Simulator* sim = static_cast<Simulator*>(lua_touserdata(lvm, 1));
+	std::string str = lua_tostring(lvm, 2);
+	tbo::window* window = sim->get_window(str.c_str());
+	if (window == nullptr) return -1;
+	lua_pushnumber(lvm, sim->get_window(str.c_str())->get_style().size.width);
+	lua_pushnumber(lvm, sim->get_window(str.c_str())->get_style().size.height);
 	return 2;
 }
 
