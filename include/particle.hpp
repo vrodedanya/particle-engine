@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include "renderable.hpp"
+#include "style.hpp"
 
 class Particle : public tbo::renderable
 {
@@ -20,6 +21,7 @@ public:
 	Vector2D speed;
 	Vector2D acceleration;
 	Vector2D position;
+	tbo::style::rgba color;
 
 	void draw(SDL_Renderer* renderer);
 };

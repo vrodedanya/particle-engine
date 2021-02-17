@@ -16,6 +16,8 @@ int lua_setCoords(lua_State* lvm);
 int lua_setDirection(lua_State* lvm);
 int lua_setSpeed(lua_State* lvm);
 int lua_setAcceleration(lua_State* lvm);
+int lua_setColor(lua_State* lvm);
+int lua_getCenterCoords(lua_State* lvm);
 
 int lua_getDelta(lua_State* lvm);
 
@@ -41,15 +43,17 @@ public:
 		lua_register(lvm, "_setDirection", lua_setDirection);
 		lua_register(lvm, "_setSpeed", lua_setSpeed);
 		lua_register(lvm, "_setAcceleration", lua_setAcceleration);
+		lua_register(lvm, "_setColor", lua_setColor);
 		lua_register(lvm, "_getCoords", lua_getCoords);
 		lua_register(lvm, "_getDirection", lua_getDirection);
 		lua_register(lvm, "_getSpeed", lua_getSpeed);
 		lua_register(lvm, "_getAcceleration", lua_getAcceleration);
+		lua_register(lvm, "_getCenterCoords", lua_getCenterCoords);
 		lua_register(lvm, "_getDelta", lua_getDelta);
 		lua_register(lvm, "_addParticle", lua_addParticle);
 
 // Get lua functions here
-		lua_getglobal(lvm, "script");
+		lua_getglobal(lvm, "init");
 		if (lua_isfunction(lvm, -1))
 		{
 			lua_pushlightuserdata(lvm, this);

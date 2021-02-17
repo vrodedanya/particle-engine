@@ -1,24 +1,24 @@
-function script(host)
+function init(host)
 	_createWindow(host, "engine", 600, 600, xpos, ypos, false)
-	for i = 1,1000 do
+	for i = 1, 10000 do
 		part = _addParticle(host, "engine")
 		_setCoords(part, math.random(0, 600), math.random(0, 600))
-		_setSpeed(part, math.random(-500, 500), math.random(-1000, 100))
-		_setDirection(part, 1, 1)
+		_setSpeed(part, math.random(0, 365), math.random(1, 300))
+		_setDirection(part, 0, 0)
+		_setColor(part, math.random(50, 255), math.random(50, 255), math.random(50, 255), 0)
 	end
 end
 
-local center_x = 300
-local center_y = 300
-
-function update(particle)
+function update(host, particle)
 	x, y = _getCoords(particle)
-	dir_x, dir_y = _getDirection(particle)
-	speed_x, speed_y = _getSpeed(particle)
+	center_x, center_y = _getCenterCoords(host, "engine")
+	angle, radius = _getSpeed(particle)
 
-	speed_x = speed_x + (center_x - x) * _getDelta()
-	speed_y = speed_y + (center_y - y) * _getDelta()
+	angle = angle + radius / 10000
+	x = center_x + math.cos(angle) * radius 
+	y = center_y + math.sin(angle) * radius
 
-	_setDirection(particle, dir_x, dir_y)
-	_setSpeed(particle, speed_x, speed_y)
+	_setSpeed(particle, angle, radius)
+	_setCoords(particle, x, y)
+
 end
