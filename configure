@@ -23,7 +23,7 @@ echo -e "${CYAN}=============================${NC}"
 echo -e "${CYAN}PARTICLE ENGINE CONFIGURATION${NC}"
 echo -e "${CYAN}=============================${NC}"
 echo -e "${LIGHTBLUE}Initing git submodules${NC}"
-git init > /dev/null
+git submodule init > /dev/null
 git submodule update > /dev/null
 cd tbo
 ./configure
