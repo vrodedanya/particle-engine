@@ -28,3 +28,14 @@ git submodule update > /dev/null
 cd tbo
 ./configure
 
+echo -e "${LIGHTBLUE}building tbo library begins...${NC}"
+echo -e "${LIGHTBLUE}Please wait. This may take a few seconds${NC}"
+cd build
+if make -j static_library > /dev/null ;
+then
+	echo -e "${LIGHTGREEN}Building tbo library complete${NC}"
+else
+	echo -e "${LIGHTRED}Building tbo library error! Pls leave a message about the problem in https://github.com/vrodedanya/tbo${NC}"
+	exit 1
+fi
+
