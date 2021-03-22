@@ -1,3 +1,6 @@
 [submodule "tbo"]
 	path = tbo
 	url = https://github.com/vrodedanya/tbo.git
+[submodule "luanda"]
+	path = luanda
+	url = https://github.com/vrodedanya/luanda.git
