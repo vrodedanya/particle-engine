@@ -7,23 +7,20 @@
 #include <vector>
 #include "renderable.hpp"
 #include "style.hpp"
+#include <functional>
 
 class Particle : public tbo::renderable
 {
 private:
 public:
-	Particle() : position(Vector2D(0, 0)) {}
-	Particle(int x, int y) : position(Vector2D(x, y)) {}
-	Particle(int x, int y, double speed_x, double speed_y) : speed(Vector2D(speed_x, speed_y)), position(Vector2D(x, y)) {}
-	Particle(int x, int y, double speed_x, double speed_y, double direction_x, double direction_y) : way(Vector2D(direction_x, direction_y)),speed(Vector2D(speed_x, speed_y)), position(Vector2D(x, y)) {}
-	Particle(int x, int y, double speed_x, double speed_y, double direction_x, double direction_y, double acceleration_x, double acceleration_y) : way(Vector2D(direction_x, direction_y)),speed(Vector2D(speed_x, speed_y)), acceleration(Vector2D(acceleration_x, acceleration_y)), position(Vector2D(x, y)) {}
+	Particle() {type = tbo::renderable::OTHER;}
 	Vector2D way;
 	Vector2D speed;
 	Vector2D acceleration;
 	Vector2D position;
 	tbo::style::rgba color;
 
-	void draw(SDL_Renderer* renderer);
+	void draw(tbo::renderer* renderer);
 };
 
 #endif
