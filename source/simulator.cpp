@@ -4,6 +4,40 @@
 #include "time.hpp"
 #include <algorithm>
 
+void Simulator::update()
+{
+	for (auto& particle : particles)
+	{
+		updateParticle(particle);
+	}
+}
+
+void Simulator::updateParticle(Particle* particle)
+{
+
+	lua_getglobal(lvm, "update");
+	if (lua_isfunction(lvm, -1))
+	{
+		lua_pushlightuserdata(lvm, this);
+		lua_pushlightuserdata(lvm, particle);
+		if (lua_pcall(lvm, 2, 0, 0) != 0)
+		{
+			throw std::runtime_error(std::string("lua: failed to execute the function 'cause:\n") + lua_tostring(lvm, -1));
+		}			
+	}
+	particle->position += particle->speed * particle->way.normalize() * tbo::time::range::get_delta();
+	//std::cerr << "Exit" << std::endl;
+	//lua_close(local_lvm);
+}
+
+Particle* Simulator::addParticle(const char* window_name)
+{
+	Particle* buf = new Particle();
+	particles.emplace_back(buf);
+	get_window(window_name)->add_object(buf);	
+	return buf;
+}
+
 int lua_createWindow(lua_State* lvm)
 {
 	if (lua_gettop(lvm) != 7) return -1;
@@ -95,7 +129,7 @@ int lua_setColor(lua_State* lvm)
 
 int lua_getDelta(lua_State* lvm)
 {
-	lua_pushnumber(lvm,tbo::time::timerange::get_delta());
+	lua_pushnumber(lvm,tbo::time::range::get_delta());
 	return 1;
 }
 
@@ -130,32 +164,4 @@ int lua_addParticle(lua_State* lvm)
 	Particle* buf = sim->addParticle(lua_tostring(lvm, 2));
 	lua_pushlightuserdata(lvm, buf);
 	return 1;
-}
-
-void Simulator::update()
-{
-	for (auto& particle : particles)
-	{
-		updateParticle(particle);
-	}
-}
-
-void Simulator::updateParticle(Particle* particle)
-{
-	lua_getglobal(lvm, "update");
-	if (lua_isfunction(lvm, -1))
-	{
-		lua_pushlightuserdata(lvm, this);
-		lua_pushlightuserdata(lvm, particle);
-		lua_pcall(lvm, 2, 0, 0);			
-	}
-	particle->position += particle->speed * particle->way.normalize() * tbo::time::timerange::get_delta();
-}
-
-Particle* Simulator::addParticle(const char* window_name)
-{
-	Particle* buf = new Particle();
-	particles.emplace_back(buf);
-	get_window(window_name)->add_object(buf);	
-	return buf;
 }
