@@ -3,7 +3,7 @@
 
 #include "program.hpp"
 #include "particle.hpp"
-#include "lua.hpp"
+#include "lua_manager.hpp"
 
 int lua_createWindow(lua_State* lvm);
 int lua_addParticle(lua_State* lvm);
